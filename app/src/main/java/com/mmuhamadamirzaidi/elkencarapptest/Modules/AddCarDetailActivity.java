@@ -41,8 +41,8 @@ public class AddCarDetailActivity extends AppCompatActivity {
         add_detail_icon_back = findViewById(R.id.add_detail_icon_back);
         add_detail_icon_save = findViewById(R.id.add_detail_icon_save);
 
-        add_detail_image_car = findViewById(R.id.add_detail_image_car);
-        add_detail_image_car = findViewById(R.id.add_detail_image_car);
+        add_detail_image_car_preview = findViewById(R.id.add_detail_image_car_preview);
+        add_detail_image_car_choose = findViewById(R.id.add_detail_image_car_choose);
 
         add_detail_manufacturer = findViewById(R.id.add_detail_manufacturer);
         add_detail_name = findViewById(R.id.add_detail_name);
@@ -74,7 +74,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
                             add_detail_name.getText().toString().trim(),
                             add_detail_price.getText().toString().trim(),
                             add_detail_plat_number.getText().toString().trim(),
-                            imageViewToByte(add_detail_image_car)
+                            imageViewToByte(add_detail_image_car_preview)
                     );
                     Toast.makeText(AddCarDetailActivity.this, "Details added successfully!", Toast.LENGTH_SHORT).show();
 
@@ -83,14 +83,14 @@ public class AddCarDetailActivity extends AppCompatActivity {
                     add_detail_name.setText("");
                     add_detail_price.setText("");
                     add_detail_plat_number.setText("");
-                    add_detail_image_car.setImageResource(R.drawable.logoround);
+                    add_detail_image_car_preview.setImageResource(R.drawable.logoround);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         });
 
-        add_detail_image_car.setOnClickListener(new View.OnClickListener() {
+        add_detail_image_car_choose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Choose image
@@ -138,7 +138,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
 
-                add_detail_image_car.setImageURI(resultUri);
+                add_detail_image_car_preview.setImageURI(resultUri);
 
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
