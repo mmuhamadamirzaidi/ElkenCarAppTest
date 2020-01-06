@@ -23,6 +23,8 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 
+import static com.mmuhamadamirzaidi.elkencarapptest.Common.Common.sqLiteHelper;
+
 public class AddCarDetailActivity extends AppCompatActivity {
 
     ImageView add_detail_icon_back, add_detail_icon_save, add_detail_image_car_preview, add_detail_image_car_choose;
@@ -30,8 +32,6 @@ public class AddCarDetailActivity extends AppCompatActivity {
     EditText add_detail_manufacturer, add_detail_name, add_detail_price, add_detail_plat_number;
 
     final int REQUEST_CODE_GALLERY = 999;
-
-    public static SQLiteHelper sqLiteHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +58,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
         add_detail_icon_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                finish();
-                Intent intent = new Intent(AddCarDetailActivity.this, MainActivity.class);
-                startActivity(intent);
+                finish();
             }
         });
 
@@ -76,6 +74,8 @@ public class AddCarDetailActivity extends AppCompatActivity {
                             add_detail_plat_number.getText().toString().trim(),
                             imageViewToByte(add_detail_image_car_preview)
                     );
+                    SendUserToMainActivity();
+
                     Toast.makeText(AddCarDetailActivity.this, "Details added successfully!", Toast.LENGTH_SHORT).show();
 
                     // Reset view
@@ -102,7 +102,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
     public static byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte[] byteArray = stream.toByteArray();
 
         return byteArray;
@@ -146,5 +146,12 @@ public class AddCarDetailActivity extends AppCompatActivity {
         }
 
         super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void SendUserToMainActivity() {
+        Intent mainIntent = new Intent(AddCarDetailActivity.this, MainActivity.class);
+        mainIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(mainIntent);
+        finish();
     }
 }

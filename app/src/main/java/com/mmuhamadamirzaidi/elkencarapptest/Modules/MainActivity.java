@@ -29,11 +29,14 @@ import android.widget.Toast;
 import com.mmuhamadamirzaidi.elkencarapptest.Adapter.CarListAdapter;
 import com.mmuhamadamirzaidi.elkencarapptest.Model.Car;
 import com.mmuhamadamirzaidi.elkencarapptest.R;
+import com.mmuhamadamirzaidi.elkencarapptest.SQLiteHelper;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+
+import static com.mmuhamadamirzaidi.elkencarapptest.Common.Common.sqLiteHelper;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -61,6 +64,12 @@ public class MainActivity extends AppCompatActivity {
         carListAdapter = new CarListAdapter(this, R.layout.item_car, cars);
         listCar.setAdapter(carListAdapter);
 
+        // Create database
+        sqLiteHelper = new SQLiteHelper(this, "RECORDDB.sqlite", null, 1);
+
+        // Create table
+        sqLiteHelper.queryData("CREATE TABLE IF NOT EXISTS RECORD(id INTEGER PRIMARY KEY AUTOINCREMENT, manufacturer VARCHAR, name VARCHAR, price VARCHAR, plat VARCHAR, image BLOB)");
+
         main_icon_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -70,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         // Get all data from sqlite
-        Cursor cursor = AddCarDetailActivity.sqLiteHelper.getData("SELECT * FROM RECORD");
+        Cursor cursor = sqLiteHelper.getData("SELECT * FROM RECORD");
         cars.clear();
 
         while (cursor.moveToNext()) {
@@ -106,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int i) {
                         if (i == 0) {
                             // Update
-                            Cursor c = AddCarDetailActivity.sqLiteHelper.getData("SELECT id FROM RECORD");
+                            Cursor c = sqLiteHelper.getData("SELECT id FROM RECORD");
                             ArrayList<Integer> arrayList = new ArrayList<Integer>();
 
                             while (c.moveToNext()) {
@@ -118,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (i == 1) {
                             //Delete
-                            Cursor c = AddCarDetailActivity.sqLiteHelper.getData("SELECT id FROM RECORD");
+                            Cursor c = sqLiteHelper.getData("SELECT id FROM RECORD");
                             ArrayList<Integer> arrayList = new ArrayList<Integer>();
 
                             while (c.moveToNext()) {
@@ -136,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void showDialogDelete(final int idRecord){
+    private void showDialogDelete(final int idRecord) {
         AlertDialog.Builder dialogDelete = new AlertDialog.Builder(MainActivity.this);
         dialogDelete.setTitle("Delete");
         dialogDelete.setMessage("Are you sure want to delete this record?");
@@ -144,11 +153,10 @@ public class MainActivity extends AppCompatActivity {
         dialogDelete.setPositiveButton("Delete", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                try{
-                    AddCarDetailActivity.sqLiteHelper.deleteData(idRecord);
+                try {
+                    sqLiteHelper.deleteData(idRecord);
                     Toast.makeText(MainActivity.this, "Record deleted successfully!", Toast.LENGTH_SHORT).show();
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     Log.e("Error: ", e.getMessage());
                 }
                 updateRecordList();
@@ -165,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
         dialogDelete.show();
     }
 
-    private void showDialogUpdate(Activity activity, final int position){
+    private void showDialogUpdate(Activity activity, final int position) {
         final Dialog dialog = new Dialog(activity);
         dialog.setContentView(R.layout.dialog_activity_update_car);
         dialog.setTitle("Update");
@@ -182,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
         Button button_cancel = dialog.findViewById(R.id.button_cancel);
 
         // Get all details from item derived from sqlite
-        Cursor cursor = AddCarDetailActivity.sqLiteHelper.getData("SELECT * FROM RECORD WHERE id="+position);
+        Cursor cursor = sqLiteHelper.getData("SELECT * FROM RECORD WHERE id=" + position);
         cars.clear();
 
         while (cursor.moveToNext()) {
@@ -221,8 +229,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Update changes into database
-                try{
-                    AddCarDetailActivity.sqLiteHelper.updateData(
+                try {
+                    sqLiteHelper.updateData(
                             update_detail_manufacturer.getText().toString().trim(),
                             update_detail_name.getText().toString().trim(),
                             update_detail_price.getText().toString().trim(),
@@ -251,10 +259,10 @@ public class MainActivity extends AppCompatActivity {
 
     private void updateRecordList() {
         // Fetch all data from database
-        Cursor cursor = AddCarDetailActivity.sqLiteHelper.getData("SELECT * FROM RECORD");
+        Cursor cursor = sqLiteHelper.getData("SELECT * FROM RECORD");
         cars.clear();
 
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             int id = cursor.getInt(0);
             String manufacturer = cursor.getString(1);
             String name = cursor.getString(2);
@@ -269,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public static byte[] imageViewToByte(ImageView image) {
-        Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
+        Bitmap bitmap = ((BitmapDrawable) image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
         byte[] byteArray = stream.toByteArray();
