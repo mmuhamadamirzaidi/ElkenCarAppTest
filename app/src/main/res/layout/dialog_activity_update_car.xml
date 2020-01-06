@@ -98,7 +98,7 @@
                         android:layout_marginStart="13dp"
                         android:layout_marginEnd="13dp"
                         android:fontFamily="@font/mr"
-                        android:text="Manufacturer Name"
+                        android:hint="Manufacturer Name"
                         android:inputType="text"
                         android:textColor="@color/textColorPrimary"
                         android:textColorHint="@color/textColorAccent"

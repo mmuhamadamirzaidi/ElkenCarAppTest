@@ -95,11 +95,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
                 // Set action when on item long click
-                CharSequence[] items = {"Update, Delete"};
+                final CharSequence[] items = {"Update", "Delete"};
 
                 AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
 
-                dialog.setTitle("Choose Action");
+                dialog.setTitle("Choose An Action");
                 dialog.setItems(items, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int i) {
@@ -117,6 +117,15 @@ public class MainActivity extends AppCompatActivity {
                         }
                         if (i == 1) {
                             //Delete
+                            Cursor c = AddCarDetailActivity.sqLiteHelper.getData("SELECT id FROM RECORD");
+                            ArrayList<Integer> arrayList = new ArrayList<Integer>();
+
+                            while (c.moveToNext()) {
+                                arrayList.add(c.getInt(0));
+                            }
+
+                            // Show delete dialog
+                            showDialogDelete(arrayList.get(position));
                         }
                     }
                 });
@@ -139,9 +148,20 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, "Record deleted successfully!", Toast.LENGTH_SHORT).show();
                 }
                 catch (Exception e){
+                    Log.e("Error: ", e.getMessage());
                 }
+                updateRecordList();
             }
         });
+
+        dialogDelete.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        dialogDelete.show();
     }
 
     private void showDialogUpdate(Activity activity, final int position){
