@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.support.annotation.NonNull;
@@ -179,6 +180,31 @@ public class MainActivity extends AppCompatActivity {
 
         Button button_update = dialog.findViewById(R.id.button_update);
         Button button_cancel = dialog.findViewById(R.id.button_cancel);
+
+        // Get all details from item derived from sqlite
+        Cursor cursor = AddCarDetailActivity.sqLiteHelper.getData("SELECT * FROM RECORD WHERE id="+position);
+        cars.clear();
+
+        while (cursor.moveToNext()) {
+            int id = cursor.getInt(0);
+
+            String manufacturer = cursor.getString(1);
+            update_detail_manufacturer.setText(manufacturer);
+
+            String name = cursor.getString(2);
+            update_detail_name.setText(name);
+
+            String price = cursor.getString(3);
+            update_detail_price.setText(price);
+
+            String plat = cursor.getString(4);
+            update_detail_plat_number.setText(plat);
+
+            byte[] image = cursor.getBlob(5);
+            update_detail_image_car_preview.setImageBitmap(BitmapFactory.decodeByteArray(image, 0, image.length));
+
+            cars.add(new Car(id, manufacturer, name, price, plat, image));
+        }
 
         dialog.show();
 
