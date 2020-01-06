@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    //Main
+    <color name="colorPrimary">#494ca2</color>
+    <color name="colorPrimaryDark">#494ca2</color>
+    <color name="colorAccent">#494ca2</color>
+
+    <color name="colorThird">#c6cbef</color>
+    <color name="colorForth">#e3e7f1</color>
+
+    //Background
+    <color name="backgroundApp">#f4f4f4</color>
+
+    //Button
+    <color name="colorTransparent">#00000000</color>
+    <color name="disable">#DDDDDD</color>
+
+    //Text
+    <color name="textColorPrimaryDark">#2c2c2c</color>
+    <color name="textColorPrimary">#4b4b4c</color>
+    <color name="textColorAccent">#808080</color>
+
+    //Order Status
+    <color name="delivered">#0b8457</color>
+    <color name="shipped">#ec9b3b</color>
+    <color name="cancelled">#db3951</color>
+
+    <color name="yellow">#eac100</color>
+
+    //Others
+    <color name="white">#ffffff</color>
+</resources>
