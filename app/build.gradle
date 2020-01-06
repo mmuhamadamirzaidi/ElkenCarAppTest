@@ -35,6 +35,5 @@ dependencies {
 
     //Others Library
     implementation 'de.hdodenhof:circleimageview:3.0.0'
-    implementation 'com.github.d-max:spots-dialog:1.1@aar'
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
 }

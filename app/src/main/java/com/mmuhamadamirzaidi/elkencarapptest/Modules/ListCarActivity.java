@@ -38,7 +38,7 @@ import java.util.ArrayList;
 
 import static com.mmuhamadamirzaidi.elkencarapptest.Common.Common.sqLiteHelper;
 
-public class MainActivity extends AppCompatActivity {
+public class ListCarActivity extends AppCompatActivity {
 
     ImageView main_icon_add;
 
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_list_car);
 
         main_icon_add = findViewById(R.id.main_icon_add);
 
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
         main_icon_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, AddCarDetailActivity.class);
+                Intent intent = new Intent(ListCarActivity.this, AddCarDetailActivity.class);
                 startActivity(intent);
             }
         });
@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                 // Set action when on item long click
                 final CharSequence[] items = {"Update", "Delete"};
 
-                AlertDialog.Builder dialog = new AlertDialog.Builder(MainActivity.this);
+                AlertDialog.Builder dialog = new AlertDialog.Builder(ListCarActivity.this);
 
                 dialog.setTitle("Choose An Action");
                 dialog.setItems(items, new DialogInterface.OnClickListener() {
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                             }
 
                             // Show update dialog
-                            showDialogUpdate(MainActivity.this, arrayList.get(position));
+                            showDialogUpdate(ListCarActivity.this, arrayList.get(position));
                         }
                         if (i == 1) {
                             //Delete
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showDialogDelete(final int idRecord) {
-        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(MainActivity.this);
+        AlertDialog.Builder dialogDelete = new AlertDialog.Builder(ListCarActivity.this);
         dialogDelete.setTitle("Delete");
         dialogDelete.setMessage("Are you sure want to delete this record?");
 
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 try {
                     sqLiteHelper.deleteData(idRecord);
-                    Toast.makeText(MainActivity.this, "Record deleted successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListCarActivity.this, "Record deleted successfully!", Toast.LENGTH_SHORT).show();
                 } catch (Exception e) {
                     Log.e("Error: ", e.getMessage());
                 }
@@ -221,7 +221,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Check external storage permission
-                ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                ActivityCompat.requestPermissions(ListCarActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
             }
         });
 
@@ -235,11 +235,11 @@ public class MainActivity extends AppCompatActivity {
                             update_detail_name.getText().toString().trim(),
                             update_detail_price.getText().toString().trim(),
                             update_detail_plat_number.getText().toString().trim(),
-                            MainActivity.imageViewToByte(update_detail_image_car_preview),
+                            ListCarActivity.imageViewToByte(update_detail_image_car_preview),
                             position
                     );
                     dialog.dismiss();
-                    Toast.makeText(MainActivity.this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ListCarActivity.this, "Details updated successfully!", Toast.LENGTH_SHORT).show();
 
 
                 } catch (Exception error) {

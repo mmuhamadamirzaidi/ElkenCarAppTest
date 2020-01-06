@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Modules.MainActivity">
+    tools:context=".Modules.ListCarActivity">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/profile_app_bar_layout"
@@ -59,6 +59,7 @@
         android:layout_height="wrap_content" >
 
 <!--        <SearchView-->
+<!--            android:id="@+id/search_list_car"-->
 <!--            android:queryHint="Enter name to search..."-->
 <!--            android:layout_width="match_parent"-->
 <!--            android:layout_height="wrap_content" />-->

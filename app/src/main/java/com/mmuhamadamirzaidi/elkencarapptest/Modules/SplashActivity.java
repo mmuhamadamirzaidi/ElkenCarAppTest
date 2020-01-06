@@ -33,7 +33,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent splash = new Intent(SplashActivity.this, MainActivity.class);
+                Intent splash = new Intent(SplashActivity.this, ListCarActivity.class);
                 startActivity(splash);
                 finish();
             }
