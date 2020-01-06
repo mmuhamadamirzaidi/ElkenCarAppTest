@@ -69,23 +69,23 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="30dp">
 
-<!--                <de.hdodenhof.circleimageview.CircleImageView-->
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_gravity="center"
+                    android:id="@+id/add_detail_image_car_preview"
+                    android:layout_width="71dp"
+                    android:layout_height="71dp"
+                    android:layout_marginStart="16dp"
+                    android:src="@drawable/logoround"
+                    app:civ_border_color="@color/colorPrimaryDark"
+                    app:civ_border_width="2dp" />
+
+<!--                <ImageView-->
 <!--                    android:layout_gravity="center"-->
 <!--                    android:id="@+id/add_detail_image_car_choose"-->
 <!--                    android:layout_width="71dp"-->
 <!--                    android:layout_height="71dp"-->
 <!--                    android:layout_marginStart="16dp"-->
-<!--                    android:src="@drawable/logoround"-->
-<!--                    app:civ_border_color="@color/colorPrimaryDark"-->
-<!--                    app:civ_border_width="2dp" />-->
-
-                <ImageView
-                    android:layout_gravity="center"
-                    android:id="@+id/add_detail_image_car_choose"
-                    android:layout_width="71dp"
-                    android:layout_height="71dp"
-                    android:layout_marginStart="16dp"
-                    android:src="@drawable/logoround"/>
+<!--                    android:src="@drawable/logoround"/>-->
 
                 <LinearLayout
                     android:layout_gravity="center"
@@ -95,6 +95,7 @@
                     android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/add_detail_image_car_choose"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:src="@drawable/ic_photo_camera_primary_24dp" />

@@ -25,7 +25,7 @@ import java.io.ByteArrayOutputStream;
 
 public class AddCarDetailActivity extends AppCompatActivity {
 
-    ImageView add_detail_icon_back, add_detail_icon_save, add_detail_image_car_choose;
+    ImageView add_detail_icon_back, add_detail_icon_save, add_detail_image_car_choose, add_detail_image_car_preview;
 
     EditText add_detail_manufacturer, add_detail_name, add_detail_price, add_detail_plat_number;
 
@@ -40,7 +40,10 @@ public class AddCarDetailActivity extends AppCompatActivity {
 
         add_detail_icon_back = findViewById(R.id.add_detail_icon_back);
         add_detail_icon_save = findViewById(R.id.add_detail_icon_save);
+
         add_detail_image_car_choose = findViewById(R.id.add_detail_image_car_choose);
+
+        add_detail_image_car_preview = findViewById(R.id.add_detail_image_car_preview);
 
         add_detail_manufacturer = findViewById(R.id.add_detail_manufacturer);
         add_detail_name = findViewById(R.id.add_detail_name);
@@ -133,7 +136,8 @@ public class AddCarDetailActivity extends AppCompatActivity {
             if (resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
 
-                add_detail_image_car_choose.setImageURI(resultUri);
+                add_detail_image_car_preview.setImageURI(resultUri);
+                
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
             }
