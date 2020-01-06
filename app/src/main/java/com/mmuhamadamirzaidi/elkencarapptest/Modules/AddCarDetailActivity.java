@@ -102,7 +102,7 @@ public class AddCarDetailActivity extends AppCompatActivity {
     public static byte[] imageViewToByte(ImageView image) {
         Bitmap bitmap = ((BitmapDrawable)image.getDrawable()).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 30, stream);
         byte[] byteArray = stream.toByteArray();
 
         return byteArray;
