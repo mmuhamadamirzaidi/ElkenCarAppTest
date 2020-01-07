@@ -253,6 +253,23 @@ public class ListCarActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 dialog.dismiss();
+
+                // Get all data from sqlite
+                Cursor cursor = sqLiteHelper.getData("SELECT * FROM RECORD");
+                cars.clear();
+
+                while (cursor.moveToNext()) {
+                    int id = cursor.getInt(0);
+                    String manufacturer = cursor.getString(1);
+                    String name = cursor.getString(2);
+                    String price = cursor.getString(3);
+                    String plat = cursor.getString(4);
+
+                    byte[] image = cursor.getBlob(5);
+
+                    cars.add(new Car(id, manufacturer, name, price, plat, image));
+                }
+                carListAdapter.notifyDataSetChanged();
             }
         });
     }
